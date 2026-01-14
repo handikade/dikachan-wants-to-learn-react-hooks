@@ -32,6 +32,7 @@ const UseEffectExample = () => {
           <Route index element={<Navigate to="api-fetch" replace />} />
           <Route path="api-fetch" element={<ApiFetch />} />
           <Route path="ls-sync" element={<LocalStorageSync />} />
+          <Route path="mouse-track" element={<TrackMouse />} />
         </Route>
       </Routes>
     </div>
@@ -54,6 +55,7 @@ function Layout() {
       >
         <Link to="/effect/api-fetch">API Fetch</Link>
         <Link to="/effect/ls-sync">Local Storage Sync</Link>
+        <Link to="/effect/mouse-track">Mouse Track</Link>
       </nav>
       <Outlet />
     </div>
@@ -172,6 +174,71 @@ function ApiFetch() {
   );
 }
 
+function initializeCountFromLocalStorage() {
+  const rawCount = localStorage.getItem("count");
+  const count = Number(rawCount);
+
+  return isNaN(count) ? 0 : count;
+}
+
 function LocalStorageSync() {
-  return <p>LocalStorageSync works!</p>;
+  /**
+   * penting ⚠️
+   * pass reference-nya (tanpa invoke): ```useState<number>(initializeCountFromLocalStorage)``` (lazy init)
+   * kalo ```useState<number>(initializeCountFromLocalStorage())``` bakal dipanggil tiap render
+   */
+  const [count, setCount] = useState<number>(initializeCountFromLocalStorage);
+
+  useEffect(() => {
+    localStorage.setItem("count", count.toString());
+  }, [count]);
+
+  return (
+    <>
+      <h2 style={{ textAlign: "center", color: "red" }}>Count: {count}</h2>
+      <div style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
+        <button type="button" onClick={() => setCount((c) => c + 1)}>
+          Increment
+        </button>
+        <button type="button" onClick={() => setCount((c) => c - 1)}>
+          Decrement
+        </button>
+      </div>
+    </>
+  );
+}
+
+function TrackMouse() {
+  const [coordinate, setCoordinate] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const area = document.getElementById("track-area");
+    const track = (e: MouseEvent) => {
+      setCoordinate({ x: e.x, y: e.y });
+    };
+    area?.addEventListener("mousemove", track);
+
+    return () => {
+      area?.removeEventListener("mousemove", track);
+    };
+  }, []);
+
+  return (
+    <>
+      <div
+        id="track-area"
+        style={{
+          height: "300px",
+          background: "#ddd",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <p>
+          x: {coordinate.x}, y: {coordinate.y}
+        </p>
+      </div>
+    </>
+  );
 }
