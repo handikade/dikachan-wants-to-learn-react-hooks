@@ -27,8 +27,8 @@ function App() {
     <Routes>
       <Route element={<Layout />}>
         <Route index element={<Navigate to="/state" replace />} />
-        <Route path="state" element={<UseStateExample />} />
-        <Route path="effect" element={<UseEffectExample />} />
+        <Route path="state/*" element={<UseStateExample />} />
+        <Route path="effect/*" element={<UseEffectExample />} />
         <Route path="*" element={<p>Not found</p>} />
       </Route>
     </Routes>

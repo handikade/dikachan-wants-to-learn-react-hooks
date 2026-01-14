@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link, Navigate, Outlet, Route, Routes } from "react-router-dom";
 
 // #region HELPERS
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -23,7 +24,43 @@ type Anime = {
 };
 // #endregion HELPERS
 
-const ApiFetch = () => {
+const UseEffectExample = () => {
+  return (
+    <div style={{ margin: "0 auto", maxWidth: "800px" }}>
+      <Routes>
+        <Route element={<Layout />}>
+          <Route index element={<Navigate to="api-fetch" replace />} />
+          <Route path="api-fetch" element={<ApiFetch />} />
+          <Route path="ls-sync" element={<LocalStorageSync />} />
+        </Route>
+      </Routes>
+    </div>
+  );
+};
+
+export default UseEffectExample;
+
+function Layout() {
+  return (
+    <div>
+      <nav
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: "12px",
+          marginBottom: "16px",
+        }}
+      >
+        <Link to="/effect/api-fetch">API Fetch</Link>
+        <Link to="/effect/ls-sync">Local Storage Sync</Link>
+      </nav>
+      <Outlet />
+    </div>
+  );
+}
+
+function ApiFetch() {
   const [animes, setAnimes] = useState<Anime[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [limit, setLimit] = useState("4");
@@ -84,11 +121,13 @@ const ApiFetch = () => {
       )}
       <table border={1} style={{ width: "100%" }}>
         <thead>
-          <th>MAL ID</th>
-          <th>TITLE</th>
-          <th>YEAR</th>
-          <th>RATING</th>
-          <th>SCORE</th>
+          <tr>
+            <th>MAL ID</th>
+            <th>TITLE</th>
+            <th>YEAR</th>
+            <th>RATING</th>
+            <th>SCORE</th>
+          </tr>
         </thead>
         <tbody>
           {animes.map((a) => (
@@ -131,14 +170,8 @@ const ApiFetch = () => {
       </div>
     </div>
   );
-};
+}
 
-const UseEffectExample = () => {
-  return (
-    <div style={{ margin: "0 auto", maxWidth: "800px" }}>
-      <ApiFetch />
-    </div>
-  );
-};
-
-export default UseEffectExample;
+function LocalStorageSync() {
+  return <p>LocalStorageSync works!</p>;
+}

@@ -1,6 +1,49 @@
 import { useState } from "react";
+import { Link, Navigate, Outlet, Route, Routes } from "react-router-dom";
 
-const UseStateSimple = () => {
+const UseStateExample = () => {
+  return (
+    <div style={{ margin: "0 auto", maxWidth: "600px" }}>
+      <Routes>
+        <Route element={<Layout />}>
+          <Route index element={<Navigate to="simple" replace />} />
+          <Route path="simple" element={<UseStateSimple />} />
+          <Route
+            path="with-object-and-input"
+            element={<UseStateObjectAndInput />}
+          />
+          <Route path="with-undo-redo" element={<UseStateWithUndoRedo />} />
+          <Route path="*" element={<p>Not found</p>} />
+        </Route>
+      </Routes>
+    </div>
+  );
+};
+
+export default UseStateExample;
+
+function Layout() {
+  return (
+    <div style={{ margin: "0 auto", maxWidth: "600px" }}>
+      <nav
+        style={{
+          display: "flex",
+          gap: "12px",
+          marginBottom: "16px",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Link to="/state/simple">Simple</Link>
+        <Link to="/state/with-object-and-input">Object + Input</Link>
+        <Link to="/state/with-undo-redo">Undo/Redo</Link>
+      </nav>
+      <Outlet />
+    </div>
+  );
+}
+
+function UseStateSimple() {
   const [count, setCount] = useState(0);
   const title = "Simple useState";
   return (
@@ -17,9 +60,9 @@ const UseStateSimple = () => {
       </div>
     </>
   );
-};
+}
 
-const UseStateObjectAndInput = () => {
+function UseStateObjectAndInput() {
   const [profile, setProfile] = useState({ name: "", age: 0 });
   const title = "useState With Object and Input";
 
@@ -67,11 +110,11 @@ const UseStateObjectAndInput = () => {
       </div>
     </>
   );
-};
+}
 
 type ActionType = "increment" | "decrement";
 
-const UseStateWithUndoRedo = () => {
+function UseStateWithUndoRedo() {
   const [count, setCount] = useState(0);
   const [undoStack, setUndoStack] = useState<Array<ActionType>>([]);
   const [redoStack, setRedoStack] = useState<Array<ActionType>>([]);
@@ -156,18 +199,4 @@ const UseStateWithUndoRedo = () => {
       </div>
     </>
   );
-};
-
-const UseStateExample = () => {
-  return (
-    <div style={{ margin: "0 auto", maxWidth: "600px" }}>
-      <UseStateSimple />
-      <hr />
-      <UseStateObjectAndInput />
-      <hr />
-      <UseStateWithUndoRedo />
-    </div>
-  );
-};
-
-export default UseStateExample;
+}
