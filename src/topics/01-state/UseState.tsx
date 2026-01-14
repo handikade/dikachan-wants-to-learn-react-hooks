@@ -160,13 +160,13 @@ const UseStateWithUndoRedo = () => {
 
 const UseStateExample = () => {
   return (
-    <>
+    <div style={{ margin: "0 auto", maxWidth: "600px" }}>
       <UseStateSimple />
       <hr />
       <UseStateObjectAndInput />
       <hr />
       <UseStateWithUndoRedo />
-    </>
+    </div>
   );
 };
 

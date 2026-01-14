@@ -135,9 +135,9 @@ const ApiFetch = () => {
 
 const UseEffectExample = () => {
   return (
-    <>
+    <div style={{ margin: "0 auto", maxWidth: "800px" }}>
       <ApiFetch />
-    </>
+    </div>
   );
 };
 
