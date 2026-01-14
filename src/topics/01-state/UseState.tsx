@@ -49,12 +49,22 @@ function UseStateSimple() {
   return (
     <>
       <h2 style={{ textAlign: "center" }}>{title}</h2>
-      <h2 style={{ textAlign: "center", color: "red" }}>Count: {count}</h2>
+      <h2 style={{ textAlign: "center", color: "red" }} data-testid="count">
+        Count: {count}
+      </h2>
       <div style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
-        <button type="button" onClick={() => setCount((c) => c + 1)}>
+        <button
+          type="button"
+          data-testid="increment-btn"
+          onClick={() => setCount((c) => c + 1)}
+        >
           Increment
         </button>
-        <button type="button" onClick={() => setCount((c) => c - 1)}>
+        <button
+          type="button"
+          data-testid="decrement-btn"
+          onClick={() => setCount((c) => c - 1)}
+        >
           Decrement
         </button>
       </div>
