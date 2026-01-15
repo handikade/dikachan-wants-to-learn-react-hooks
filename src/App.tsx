@@ -3,6 +3,7 @@ import UseStateExample from "./topics/01-state/UseState";
 import UseEffectExample from "./topics/02-effect/UseEffect";
 import UseRefExample from "./topics/03-ref/UseRef";
 import UseMemoExample from "./topics/04-memo/UseMemo";
+import UseCallbackExample from "./topics/05-callback/UseCallback";
 
 const Layout = () => {
   return (
@@ -20,6 +21,9 @@ const Layout = () => {
           </div>
           <div style={{ padding: "4px" }}>
             <Link to="/memo">useMemo</Link>
+          </div>
+          <div style={{ padding: "4px" }}>
+            <Link to="/callback">useCallback</Link>
           </div>
         </nav>
       </div>
@@ -39,6 +43,7 @@ function App() {
         <Route path="effect/*" element={<UseEffectExample />} />
         <Route path="ref/*" element={<UseRefExample />} />
         <Route path="memo/*" element={<UseMemoExample />} />
+        <Route path="callback/*" element={<UseCallbackExample />} />
         <Route path="*" element={<p>Not found</p>} />
       </Route>
     </Routes>
