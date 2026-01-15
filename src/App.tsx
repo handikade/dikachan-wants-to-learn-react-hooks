@@ -2,6 +2,7 @@ import { Link, Navigate, Outlet, Route, Routes } from "react-router-dom";
 import UseStateExample from "./topics/01-state/UseState";
 import UseEffectExample from "./topics/02-effect/UseEffect";
 import UseRefExample from "./topics/03-ref/UseRef";
+import UseMemoExample from "./topics/04-memo/UseMemo";
 
 const Layout = () => {
   return (
@@ -16,6 +17,9 @@ const Layout = () => {
           </div>
           <div style={{ padding: "4px" }}>
             <Link to="/ref">useRef</Link>
+          </div>
+          <div style={{ padding: "4px" }}>
+            <Link to="/memo">useMemo</Link>
           </div>
         </nav>
       </div>
@@ -34,6 +38,7 @@ function App() {
         <Route path="state/*" element={<UseStateExample />} />
         <Route path="effect/*" element={<UseEffectExample />} />
         <Route path="ref/*" element={<UseRefExample />} />
+        <Route path="memo/*" element={<UseMemoExample />} />
         <Route path="*" element={<p>Not found</p>} />
       </Route>
     </Routes>
